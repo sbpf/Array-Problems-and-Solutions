@@ -1,6 +1,3 @@
-package prampInterviews;
-
-import java.io.*;
 import java.util.*;
 
 public class Arrays_pancakeSort {
