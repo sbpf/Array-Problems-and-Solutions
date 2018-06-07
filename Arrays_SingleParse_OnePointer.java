@@ -213,6 +213,88 @@ public class Arrays_SingleParse_OnePointer {
         return profit;
     }
     
+    /*628. Maximum Product of Three Numbers
+     * Given an integer array, find three numbers whose product is maximum and output the maximum product.
+
+		Example 1:
+		Input: [1,2,3]
+		Output: 6
+		Example 2:
+		Input: [1,2,3,4]
+		Output: 24
+     * 
+     */
+    public static int maximumProduct(int[] nums) {
+        int negativeMin1 = Integer.MAX_VALUE, negativeMin2 = Integer.MAX_VALUE, negativeMin3 = Integer.MAX_VALUE;
+        int positiveMax1 = Integer.MIN_VALUE, positiveMax2 = Integer.MIN_VALUE, positiveMax3 = Integer.MIN_VALUE;
+        
+        for(int n : nums)
+        { 
+            if(n < negativeMin1)
+            {
+                negativeMin3 = negativeMin2;
+                negativeMin2 = negativeMin1;
+                negativeMin1 = n;
+            }
+            else if (n < negativeMin2)
+            {
+                negativeMin3 = negativeMin2;
+                negativeMin2 = n;
+            }
+            else if(n<negativeMin3)
+            {
+                negativeMin3 = n;
+            }
+
+            if(n>=positiveMax1)
+            {
+                positiveMax3 = positiveMax2;
+                positiveMax2 = positiveMax1;
+                positiveMax1 = n;
+            }
+            else if(n>=positiveMax2)
+            {
+                positiveMax3 = positiveMax2;
+                positiveMax2 = n;
+            }
+            else if(n>positiveMax3)
+            {
+                positiveMax3 = n;
+            }       
+        }
+        int productUsingNegatives = Math.max((negativeMin3 * negativeMin2 * negativeMin1),(negativeMin2 * negativeMin1 * positiveMax1));
+        return Math.max(productUsingNegatives, (positiveMax1*positiveMax2*positiveMax3));
+    }
+    
+    /*
+     * 746. Min Cost Climbing Stairs
+     * On a staircase, the i-th step has some non-negative cost cost[i] assigned (0 indexed).
+
+		Once you pay the cost, you can either climb one or two steps. You need to find minimum cost to reach the top of the floor, and you can either start from the step with index 0, or the step with index 1.
+		
+		Example 1:
+		Input: cost = [10, 15, 20]
+		Output: 15
+		Explanation: Cheapest is start on cost[1], pay that cost and go to the top.
+		Example 2:
+		Input: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+		Output: 6
+		Explanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3].
+     * 
+     * Dynamic programming - check more
+     */
+    public static int minCostClimbingStairs(int[] cost) {
+        int c1 = 0, c2 = 0;
+        
+        for(int i= cost.length-1; i>=0; --i)
+        {
+            int c0 = cost[i] +  Math.min(c2,c1);
+            c2 = c1;
+            c1 = c0;
+        }
+        return(Math.min(c2,c1));
+    }
+    
 	public static void main(String[] args) {
 		//Testing non-decreasing array
 		int[] nums = {1,4,2,3};
