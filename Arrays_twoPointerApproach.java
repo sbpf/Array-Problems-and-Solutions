@@ -165,6 +165,50 @@ public class Arrays_twoPointerApproach {
                 A[indexA2--] = A[indexA1] > B[indexB] ? A[indexA1--] :B[indexB--];
 		}		
     }
+    
+    /*674. Longest Continuous Increasing Subsequence
+     * Given an unsorted array of integers, find the length of longest continuous increasing subsequence (subarray).
+
+		Example 1:
+		Input: [1,3,5,4,7]
+		Output: 3
+		Explanation: The longest continuous increasing subsequence is [1,3,5], its length is 3. 
+		Even though [1,3,5,7] is also an increasing subsequence, 
+		it's not a continuous one where 5 and 7 are separated by 4. 
+     */
+    public static int findLengthOfLCIS(int[] nums) 
+    {
+        int count = 0;
+        int anchor = 0;
+        for(int i = 0; i < nums.length; i++)
+        {
+            if(i != 0 && nums[i-1] >= nums[i])
+                anchor = i;
+            count = Math.max(count, i-anchor + 1);
+        }
+        return count;
+    }
+    
+    /*26. Remove Duplicates from Sorted Array
+     * Given a sorted array nums, remove the duplicates in-place such that each element 
+     * appear only once and return the new length.
+	   Do not allocate extra space for another array, you must do this by modifying the input array 
+	   in-place with O(1) extra memory.     * 
+     */
+    public static int removeDuplicates(int[] nums) {
+        int lastNonDuplicateIndex = 0;
+        HashSet<Integer> set = new HashSet<Integer>();
+         
+         for(int i=0; i<nums.length; i++)
+         {
+             if(!set.contains(nums[i]))
+             {
+                 nums[lastNonDuplicateIndex++] = nums[i];
+                 set.add(nums[i]);
+             }            
+         }
+         return lastNonDuplicateIndex;
+     }
 	public static void main(String[] args) {
 		
 		//Testing 3Sum
